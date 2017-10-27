@@ -4,19 +4,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class DraftsPage extends AbstractPage {
-    @FindBy(xpath = "//*[contains(@title, 'Черновики')]")
-    private WebElement draftsButton;
-
-    @FindBy(xpath = "//*[@class='bog']")
+    @FindBy(xpath = "//div[@class='ae4 UI']/div/div/table/tbody/tr/td/div/div/div/span")
     private WebElement draftSubject;
 
-//нажимается кнопка "Черновик"
-    public void clickDraftsButton() throws InterruptedException {
-        Thread.sleep(2000);
-        draftsButton.click();
-    }
 //проверяется, что создан черновик с нужной темой
-    public String getDraftSubject() {
+    public String getDraftSubject() throws InterruptedException {
+        Thread.sleep(2000);
         return draftSubject.getText();
     }
 }

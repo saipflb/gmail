@@ -1,9 +1,10 @@
 # Intellij
-.idea/
 *.iml
 *.iws
+*.idea/
 
 # Maven
 log/
 target/
-src/main/
+
+

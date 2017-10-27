@@ -3,11 +3,14 @@ package ru.pflb.learning.stepdefinitions;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Пусть;
 import cucumber.api.java.ru.Тогда;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import ru.pflb.learning.pages.LoginPage;
 import ru.pflb.learning.pages.MainPage;
 
 public class LoginPageSteps {
+    private static final Logger logger = LoggerFactory.getLogger(LoginPageSteps.class);
 
     private LoginPage loginPage = new LoginPage();
     private MainPage mainPage = new MainPage();
@@ -15,6 +18,8 @@ public class LoginPageSteps {
     @Пусть("^пользователь вводит логин '(.+)'$")
     public void fillLogin(String login) {
         loginPage.fillLoginField(login);
+        logger.debug("Логинимся");
+        logger.info("Получилось!");
             }
 
     @И("^нажимает кнопку Далее$")

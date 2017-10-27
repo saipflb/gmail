@@ -8,7 +8,10 @@ import ru.pflb.learning.pages.AbstractPage;
 
 public class MainPage extends AbstractPage {
 
-    public String subjectPlusTime;
+    public static String subjectPlusTime;
+    public String getSubjectPlusTime() {
+        return subjectPlusTime;
+    }
 
     @FindBy(xpath = "//*[contains(@title, 'kotionb3505@gmail.com')]")
     private WebElement userName;
@@ -28,9 +31,12 @@ public class MainPage extends AbstractPage {
     @FindBy(xpath = "//img[@aria-label='Сохранить и закрыть']")
     private WebElement closeMail;
 
+    @FindBy(xpath = "//*[contains(@title, 'Черновики')]")
+    private WebElement draftsButton;
+
+
 
 //    проверка того, что пользователь корректно залогинился
-
     public String getUserName() {
         return userName.getAttribute("title");
     }
@@ -57,8 +63,14 @@ public class MainPage extends AbstractPage {
         mailText.clear();
         mailText.sendKeys(text);
     }
-//сохранить и закрыть письмо
+    //сохранить и закрыть письмо
     public void saveAndCloseMessage() {
        closeMail.click();
            }
+
+    //нажимается кнопка "Черновик"
+    public void clickDraftsButton() throws InterruptedException {
+        Thread.sleep(2000);
+        draftsButton.click();
+    }
 }
