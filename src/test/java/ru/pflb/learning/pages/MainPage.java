@@ -1,19 +1,21 @@
 package ru.pflb.learning.pages;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import ru.pflb.learning.pages.AbstractPage;
 
 public class MainPage extends AbstractPage {
 
-    public static String subjectPlusTime;
+    public static String subjectPlusTime, text, address;
+
     public String getSubjectPlusTime() {
         return subjectPlusTime;
     }
+    public String getAddress() {
+        return address;
+    }
+    public String getText(){return text;}
 
-    @FindBy(xpath = "//*[contains(@title, 'kotionb3505@gmail.com')]")
+    @FindBy(xpath = "//*[contains(@title, 'Аккаунт Google')]")
     private WebElement userName;
 
     @FindBy(xpath = "//div[@role='button' and text()='НАПИСАТЬ']")
@@ -48,6 +50,7 @@ public class MainPage extends AbstractPage {
     }
     //ввод адреса
     public void fillMailToField(String address) throws InterruptedException {
+      MainPage.address=address;
         Thread.sleep(4000);
         mailTo.clear();
         mailTo.sendKeys(address);
@@ -60,6 +63,7 @@ public class MainPage extends AbstractPage {
     }
     //ввод текста
     public void fillMailTextField(String text) {
+        MainPage.text=text;
         mailText.clear();
         mailText.sendKeys(text);
     }

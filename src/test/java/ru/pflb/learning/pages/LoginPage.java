@@ -2,7 +2,6 @@ package ru.pflb.learning.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.pflb.learning.pages.AbstractPage;
 
 public class LoginPage extends AbstractPage {
     @FindBy(css = "#identifierId")
@@ -25,17 +24,6 @@ public class LoginPage extends AbstractPage {
         super();
         driver.get(BASE_URL);
     }
-
-//    public MainPage authorize(CharSequence login, CharSequence password) {
-//        loginField.sendKeys(login);
-//        passwordField.sendKeys(password);
-//        submitButton.click();
-//        return new MainPage();
-//    }
-
-//    public boolean isMessageContainerVisible() {
-//        return logonInvalidMessage.isDisplayed();
-//    }
 
     public void fillLoginField(String userName) {
         loginField.clear();
