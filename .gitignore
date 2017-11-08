@@ -4,7 +4,8 @@
 *.idea/
 
 # Maven
-log/
 target/
 
-
+# Cucumber
+logs/
+src/main/
