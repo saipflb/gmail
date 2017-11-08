@@ -5,7 +5,6 @@ import cucumber.api.java.ru.Тогда;
 import ru.pflb.learning.pages.AbstractPage;
 import ru.pflb.learning.pages.DraftsPage;
 import ru.pflb.learning.pages.FinishPage;
-import ru.pflb.learning.pages.MainPage;
 
 
 public class FinishPageSteps extends AbstractPage{

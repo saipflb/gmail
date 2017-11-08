@@ -8,7 +8,7 @@ import ru.pflb.learning.pages.LoginPage;
 import ru.pflb.learning.pages.MainPage;
 
 public class LoginPageSteps extends AbstractPage{
-       private LoginPage loginPage = new LoginPage();
+    private LoginPage loginPage = new LoginPage();
     private MainPage mainPage = new MainPage();
 
     @Пусть("^пользователь вводит логин '(.+)'$")

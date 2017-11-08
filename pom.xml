@@ -45,6 +45,13 @@
             <version>1.2.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-jvm</artifactId>
+            <version>RELEASE</version>
+            <type>pom</type>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-testng -->
         <dependency>
             <groupId>info.cukes</groupId>
