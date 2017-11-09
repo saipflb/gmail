@@ -52,7 +52,7 @@ public class DraftsPageSteps extends AbstractPage{
         logger.debug("жмет кнопку обновить");
         draftsPage.refreshButton();
         logger.debug("сравнивает тему первого письма с введенной");
-        assertNotEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject());
+        assertNotEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject()); //переписать, используя Expliced wait
     }
     }
 
