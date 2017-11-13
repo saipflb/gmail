@@ -17,8 +17,8 @@ public class DriverManager {
     public static WebDriver getDriver() {
         if (driver == null) {
 //            System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\drivers\\geckodriver.exe");
+//            System.setProperty("chrome.driver", "C:\\Selenium\\drivers\\chromedriver.exe");
 //            driver = new FirefoxDriver();
-            System.setProperty("chrome.driver", "C:\\Selenium\\drivers\\chromedriver.exe");
             driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         }
