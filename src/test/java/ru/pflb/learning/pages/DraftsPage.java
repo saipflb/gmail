@@ -1,10 +1,17 @@
 package ru.pflb.learning.pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static ru.pflb.learning.pages.MainPage.subjectPlusTime;
 
 public class DraftsPage extends AbstractPage {
-//    private final Wait<WebDriver> wait = new WebDriverWait(driver, 5, 1000);
+    private final Wait<WebDriver> wait = new WebDriverWait(driver, 100, 1000);
 
     @FindBy(xpath = "//div[@class='ae4 UI']/div/div/table/tbody/tr/td/div/div/div/span")
     private WebElement draftSubject;//ищется первый черонивик в списке
@@ -29,7 +36,7 @@ public class DraftsPage extends AbstractPage {
 
 //проверяется, что создан черновик с нужной темой
     public String getDraftSubject() {
-//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='ae4 UI']/div/div/table/tbody/tr/td/div/div/div/span"))));
+
         return draftSubject.getText();
 
     }
@@ -68,6 +75,11 @@ public class DraftsPage extends AbstractPage {
     public void sendedButtonClicker()
     {
         sended.click();
+    }
+
+    public void searchForDraft (){
+        wait.until(ExpectedConditions.invisibilityOf(driver.findElement((By.xpath(String.format("//*[text()='%s']", subjectPlusTime))))));
+
     }
 
 }

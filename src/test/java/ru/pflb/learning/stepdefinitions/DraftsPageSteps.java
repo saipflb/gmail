@@ -49,10 +49,11 @@ public class DraftsPageSteps extends AbstractPage{
     @И("^проверяет, что письмо исчезло из черновиков$")
     public void checkMail() throws InterruptedException {
         logger.info("проверяем, что письмо исчезло из черновиков");
-        logger.debug("жмем кнопку обновить");
-        draftsPage.refreshButton();
-        logger.debug("сравниваем тему первого письма с введенной");
-        assertNotEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject()); //переписать, используя Expliced wait
+        draftsPage.searchForDraft();
+//        logger.debug("жмем кнопку обновить");
+//        draftsPage.refreshButton();
+//        logger.debug("сравниваем тему первого письма с введенной");
+//        assertNotEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject()); //переписать, используя Expliced wait
     }
     }
 

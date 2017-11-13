@@ -1,9 +1,15 @@
 package ru.pflb.learning.pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage extends AbstractPage {
+    private final Wait<WebDriver> wait = new WebDriverWait(driver, 100, 1000);
 
     public static String subjectPlusTime, text, address;
 
@@ -45,7 +51,8 @@ public class MainPage extends AbstractPage {
 
     //создание нового сообщения
     public void createNewMessage() throws InterruptedException {
-        Thread.sleep(4000);
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement((By.xpath("//div[@role='button' and text()='НАПИСАТЬ']")))));
+//        Thread.sleep(4000);
         clickNewMessage.click();
     }
     //ввод адреса
