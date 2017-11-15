@@ -14,45 +14,46 @@ public class DraftsPageSteps extends AbstractPage{
 
     @И("^проверяет, что письмо сохранено в черновиках$")
     public void compliteMail() throws InterruptedException {
-        logger.info("проверяет, что письмо сохранено в черновиках");
+        logger.info("проверяем, что письмо сохранено в черновиках");
         assertEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject());
     }
     @И("^открывает черновик$")
     public void openDraft() {
-        logger.info("открывает черновик");
+        logger.info("открываем черновик");
         draftsPage.draftClicker();
     }
     @И("^проверяет, что адресат письма соответствует введенному$")
     public void checkMailTo(){
-        logger.info("проверяет, что адресат письма соответствует введенному");
+        logger.info("проверяем, что адресат письма соответствует введенному");
         assertEquals(mainPage.getAddress(), draftsPage.getMailToField());
 
     }
     @И("^проверяет, что тема письма соответствует введенной$")
     public void checkMailSubject(){
-        logger.info("проверяет, что тема письма соответствует введенной");
+        logger.info("проверяем, что тема письма соответствует введенной");
         assertEquals(mainPage.getSubjectPlusTime(), draftsPage.getMailSubject());
     }
 
     @И("^проверяет, что текст письма соответствует введенному$")
     public void checkMailText(){
-        logger.info("проверяет, что текст письма соответствует введенному");
+        logger.info("проверяем, что текст письма соответствует введенному");
         assertEquals(mainPage.getText(), draftsPage.getMailText());
     }
 
     @И("^отправляет письмо$")
     public void sendMail() {
-        logger.info("отправляет письмо");
+        logger.info("отправляем письмо");
         draftsPage.mailSender();
     }
 
     @И("^проверяет, что письмо исчезло из черновиков$")
     public void checkMail() throws InterruptedException {
-        logger.info("проверяет, что письмо исчезло из черновиков");
-        logger.debug("жмет кнопку обновить");
-        draftsPage.refreshButton();
-        logger.debug("сравнивает тему первого письма с введенной");
-        assertNotEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject());
+        logger.info("проверяем, что письмо исчезло из черновиков");
+        draftsPage.searchForDraft();
+//        logger.debug("жмем кнопку обновить");
+//        draftsPage.refreshButton();
+//        logger.debug("сравниваем тему первого письма с введенной");
+//        assertNotEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject()); //переписать, используя Expliced wait
     }
     }
 
