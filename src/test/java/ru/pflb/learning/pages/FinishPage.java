@@ -26,12 +26,7 @@ public class FinishPage extends AbstractPage {
 
     }
 
-    //закрываем браузер
-    public void closeBrowser() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+
 
     public void logoutchecking() {
         driver.findElement(By.name("password"));

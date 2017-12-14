@@ -1,5 +1,6 @@
 package ru.pflb.learning.stepdefinitions;
 
+import cucumber.api.java.ru.Если;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Пусть;
 import org.testng.Assert;
@@ -11,9 +12,9 @@ public class LoginPageSteps extends AbstractPage{
     private LoginPage loginPage = new LoginPage();
     private MainPage mainPage = new MainPage();
 
-    @Пусть("^пользователь вводит логин '(.+)'$")
+    @Пусть("^пользователь вводит \"(.*)\"$")
     public void fillLogin(String login) {
-        logger.info("Логинимся");
+        logger.info("Пользователь вводит логин" + login);
         loginPage.fillLoginField(login);
         }
 
@@ -23,7 +24,13 @@ public class LoginPageSteps extends AbstractPage{
         loginPage.clickSubmitButton();
     }
 
-    @И("^вводит пароль '(.+)'$")
+    @Если("^появилось окно \"(.*)\", то пользователь вводит \"(.*)\"$")
+    public void checkUserForm(String check, String email){
+        logger.info ("Появилось окно" + check);
+//        loginPage.
+    }
+
+    @И("^вводит пароль \"(.*)\"$")
     public void fillPassword(String password) throws InterruptedException {
         logger.info("Вводим пароль");
         loginPage.fillPasswordField(password);
