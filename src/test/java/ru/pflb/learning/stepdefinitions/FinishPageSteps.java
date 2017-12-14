@@ -38,7 +38,7 @@ public class FinishPageSteps extends AbstractPage{
     @Тогда ("^тест завершен$")
     public void finishTest(){
         logger.info("тест успешно завершен");
-        finishPage.closeBrowser();
+//        finishPage.closeBrowser();
     }
 
 }

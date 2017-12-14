@@ -7,14 +7,21 @@ public class LoginPage extends AbstractPage {
     @FindBy(css = "#identifierId")
     private WebElement loginField;
 
-    @FindBy(xpath = "//*[@id=\"password\"]/div[1]/div/div[1]/input")
+    @FindBy(xpath = "//*[@id='password']/div[1]/div/div[1]/input")
     private WebElement passwordField;
 
-    @FindBy(xpath = "//*[@id=\"identifierNext\"]/content/span")
+    @FindBy(xpath = "//*[@id='identifierNext']/content/span")
     private WebElement submitButton;
 
-    @FindBy(xpath = "//*[@id=\"passwordNext\"]/content/span")
+    @FindBy(xpath = "//*[@id='passwordNext']/content/span")
     private WebElement nextButton;
+
+    @FindBy(xpath = "//*[@id='headingText']")
+    public WebElement checkUser;
+
+    @FindBy(xpath = "//*[@id='view_container']/form/div[2]/div/div/div/ul/li[1]/div")
+    public WebElement reserveEmailConfirm;
+
 
 
 

@@ -52,13 +52,14 @@ public class MainPage extends AbstractPage {
     //создание нового сообщения
     public void createNewMessage() throws InterruptedException {
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement((By.xpath("//div[@role='button' and text()='НАПИСАТЬ']")))));
-//        Thread.sleep(4000);
+//        Thread.sleep(4000);//TODO проверить этот вэйт
         clickNewMessage.click();
     }
     //ввод адреса
     public void fillMailToField(String address) throws InterruptedException {
       MainPage.address=address;
-        Thread.sleep(4000);
+//        Thread.sleep(4000);//TODO проверить этот вэйт
+        wait.until(ExpectedConditions.elementToBeClickable(mailTo));
         mailTo.clear();
         mailTo.sendKeys(address);
     }
@@ -81,7 +82,8 @@ public class MainPage extends AbstractPage {
 
     //нажимается кнопка "Черновик"
     public void clickDraftsButton() throws InterruptedException {
-        Thread.sleep(2000);
+//        Thread.sleep(2000);//TODO проверить этот вэйт
+        wait.until(ExpectedConditions.elementToBeClickable(draftsButton));
         draftsButton.click();
     }
 }
