@@ -14,7 +14,7 @@ public class DriverManager {
 
     }
 
-    public static WebDriver getDriver() {
+    public static WebDriver getDriver() {//TODO приложить драйвера к тесту и прописать путь до них
         if (driver == null) {
 //            System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\drivers\\geckodriver.exe");
 //            System.setProperty("chrome.driver", "C:\\Selenium\\drivers\\chromedriver.exe");

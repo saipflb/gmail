@@ -4,7 +4,10 @@ import cucumber.api.java.ru.Если;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Пусть;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.internal.FindsByXPath;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
@@ -16,49 +19,60 @@ import ru.pflb.learning.pages.MainPage;
 
 import java.util.NoSuchElementException;
 
+import static org.openqa.selenium.Keys.ENTER;
 import static org.testng.Assert.*;
 
-public class LoginPageSteps extends AbstractPage{
+public class LoginPageSteps extends AbstractPage {
     private LoginPage loginPage = new LoginPage();
-    private MainPage mainPage = new MainPage();
-    protected final Wait<WebDriver> wait = new WebDriverWait(driver, 100, 1000);
+    private final Wait<WebDriver> wait = new WebDriverWait(driver, 100, 1000);
 
-    @Пусть("^пользователь вводит \"(.*)\"$")
+    @Пусть("^пользователь вводит \"(.*)\"$")//TODO проверка на то, что поле login уже заполнено после прошлого прогона
     public void fillLogin(String login) {
         logger.info("Пользователь вводит логин" + login);
-        loginPage.fillLoginField(login);
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#identifierId")));
+            loginPage.fillLoginField(login);
+            loginPage.loginField.sendKeys(ENTER);
+        } catch (Exception e) {
+            logger.info("Не удалось ввести логин или такого пользователя не существует");//TODO проверка на неверный логин
         }
 
-    @И("^нажимает кнопку Далее$")
-    public void clickEnterButton(){
-        logger.info("Жмем кнопку Далее");
-        loginPage.clickSubmitButton();
+
     }
 
     @Если("^появилось окно \"(.*)\", то пользователь вводит \"(.*)\"$")
-    public void checkUserForm(String check, String email){
+    public void checkUserForm(String check, String email) {
+        logger.info("Верит ли Google что логинится именно пользователь?");
         try {
-            wait.until(ExpectedConditions.visibilityOf(loginPage.reserveEmailConfirm));
-            assertEquals(loginPage.checkUser.getText(), check); {
-            logger.info("Появилось окно" + check);
+            assertEquals(loginPage.checkUser.getText(), check);
+            logger.info("Google не верит. Появилось окно" + check);
             loginPage.reserveEmailConfirm.click();
-            }
-            catch (timeoutException t)
-        } catch (NoSuchElementException e) {logger.info("Окно" + check + "Не появилось");}
-
-//        loginPage.
+            //TODO дописать метод для заполнения поля и подтверждения
+        } catch (Exception e) {
+            logger.info("Google верит");
+        }
     }
 
     @И("^вводит пароль \"(.*)\"$")
-    public void fillPassword(String password) throws InterruptedException {
+    public void fillPassword(String password) {
         logger.info("Вводим пароль");
-        loginPage.fillPasswordField(password);
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='password']/div[1]/div/div[1]/input")));
+            loginPage.passwordField.sendKeys(password);
+            loginPage.passwordField.sendKeys(ENTER);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='headingText']")));
+            logger.info("Ждем, пока не исчезнет заголовок \"Добро пожаловать\"");
+        } catch (Exception e) {
+            logger.info("Не удалось ввести пароль или пароль не подходит");//TODO проверка на неверный пароль
+        }
+
     }
 
     @И("^еще раз нажимает кнопку Далее$")
-    public void clickNextButton(){
+    public void clickNextButton() {
         logger.info("Жмем кнопку Далее");
         loginPage.clickNextButton();
+
     }
 
 

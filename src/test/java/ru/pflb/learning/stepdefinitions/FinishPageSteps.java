@@ -32,13 +32,18 @@ public class FinishPageSteps extends AbstractPage{
     @И("^попадает на страницу логина$")
     public void logoutCheck(){
         logger.info("попадает на страницу логина");
-        finishPage.logoutchecking();
+        try {
+            finishPage.logoutchecking();
+        } catch (Exception e) {
+            logger.info("Промахнулся мимо страницы логина");
+            closeDriver();
+        }
     }
 
     @Тогда ("^тест завершен$")
     public void finishTest(){
         logger.info("тест успешно завершен");
-//        finishPage.closeBrowser();
+//        closeDriver();
     }
 
 }
