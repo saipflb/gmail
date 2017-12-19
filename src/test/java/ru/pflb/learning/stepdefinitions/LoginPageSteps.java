@@ -2,25 +2,17 @@ package ru.pflb.learning.stepdefinitions;
 
 import cucumber.api.java.ru.Если;
 import cucumber.api.java.ru.И;
-import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Пусть;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.internal.FindsByXPath;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import ru.pflb.learning.pages.AbstractPage;
 import ru.pflb.learning.pages.LoginPage;
-import ru.pflb.learning.pages.MainPage;
-
-import java.util.NoSuchElementException;
 
 import static org.openqa.selenium.Keys.ENTER;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class LoginPageSteps extends AbstractPage {
     private LoginPage loginPage = new LoginPage();
@@ -28,13 +20,13 @@ public class LoginPageSteps extends AbstractPage {
 
     @Пусть("^пользователь вводит \"(.*)\"$")//TODO проверка на то, что поле login уже заполнено после прошлого прогона
     public void fillLogin(String login) {
-        logger.info("Пользователь вводит логин" + login);
+        logger.info("Пользователь вводит логин " + login);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#identifierId")));
             loginPage.fillLoginField(login);
             loginPage.loginField.sendKeys(ENTER);
         } catch (Exception e) {
-            logger.info("Не удалось ввести логин или такого пользователя не существует");//TODO проверка на неверный логин
+            logger.error("Не удалось ввести логин или такого пользователя не существует");//TODO проверка на неверный логин
         }
 
 
@@ -60,18 +52,11 @@ public class LoginPageSteps extends AbstractPage {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='password']/div[1]/div/div[1]/input")));
             loginPage.passwordField.sendKeys(password);
             loginPage.passwordField.sendKeys(ENTER);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='headingText']")));
+            wait.until(ExpectedConditions.invisibilityOf(driver.findElement((By.xpath("//*[@id='password']/div[1]/div/div[1]/input")))));
             logger.info("Ждем, пока не исчезнет заголовок \"Добро пожаловать\"");
         } catch (Exception e) {
-            logger.info("Не удалось ввести пароль или пароль не подходит");//TODO проверка на неверный пароль
+            logger.error("Не удалось ввести пароль или пароль не подходит");//TODO проверка на неверный пароль
         }
-
-    }
-
-    @И("^еще раз нажимает кнопку Далее$")
-    public void clickNextButton() {
-        logger.info("Жмем кнопку Далее");
-        loginPage.clickNextButton();
 
     }
 

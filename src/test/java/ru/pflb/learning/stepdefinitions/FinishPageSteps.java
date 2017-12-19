@@ -42,8 +42,8 @@ public class FinishPageSteps extends AbstractPage{
 
     @Тогда ("^тест завершен$")
     public void finishTest(){
-        logger.info("тест успешно завершен");
-//        closeDriver();
+        logger.debug("тест успешно завершен");
+        closeDriver();
     }
 
 }

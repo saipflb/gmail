@@ -37,18 +37,5 @@ public class LoginPage extends AbstractPage {
         loginField.sendKeys(userName);
     }
 
-//    public void fillPasswordField(String password) throws InterruptedException {
-//        Thread.sleep(2000);
-//        passwordField.clear();
-//        passwordField.sendKeys(password);
-//    }
-
-    public void clickSubmitButton(){
-        submitButton.click();
-    }
-
-    public void clickNextButton() {
-        nextButton.click();
-    }
 }
 
