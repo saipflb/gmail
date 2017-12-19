@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.pflb.learning.pages.AbstractPage;
 import ru.pflb.learning.pages.LoginPage;
-
 import static org.openqa.selenium.Keys.ENTER;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 public class LoginPageSteps extends AbstractPage {
     private LoginPage loginPage = new LoginPage();
@@ -20,6 +20,18 @@ public class LoginPageSteps extends AbstractPage {
 
     @Пусть("^пользователь вводит \"(.*)\"$")//TODO проверка на то, что поле login уже заполнено после прошлого прогона
     public void fillLogin(String login) {
+        logger.info("Проверяем, заполнено ли поле логина");
+        try {
+            assertNotNull(loginPage.profileIdentifier.getText());
+            logger.warn("Поле логина уже заполнено");
+            loginPage.expandButton.click();
+            logger.info("Жмем на кнопку развертки");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='identifierLink']")));
+            loginPage.changeUser.click();
+            logger.info("Выбираем поле 'Другой аккаунт' ");
+        } catch (Exception e) {
+            logger.info("Поле логина пустое");
+        }
         logger.info("Пользователь вводит логин " + login);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#identifierId")));
@@ -34,14 +46,30 @@ public class LoginPageSteps extends AbstractPage {
 
     @Если("^появилось окно \"(.*)\", то пользователь вводит \"(.*)\"$")
     public void checkUserForm(String check, String email) {
-        logger.info("Верит ли Google что логинится именно пользователь?");
+        logger.info("Верит ли Google что логинится именно пользователь, а не хакер?");
         try {
             assertEquals(loginPage.checkUser.getText(), check);
-            logger.info("Google не верит. Появилось окно" + check);
+            logger.info("Google не верит. Появилось окно " + check);
             loginPage.reserveEmailConfirm.click();
             //TODO дописать метод для заполнения поля и подтверждения
         } catch (Exception e) {
             logger.info("Google верит");
+        }
+    }
+
+    @Если("^поле логина заполнено, пользователь жмет кнопку 'Сменить аккаунт'$")
+    public void checkLoginField() {
+        logger.info("Проверяем, заполнено ли поле логина");
+        try {
+            assertNotNull(loginPage.profileIdentifier.getText());
+            logger.warn("Поле логина уже заполнено");
+            loginPage.expandButton.click();
+            logger.info("Жмем на кнопку развертки");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='identifierLink']")));
+            loginPage.changeUser.click();
+            logger.info("Выбираем поле 'Другой аккаунт' ");
+        } catch (Exception e) {
+            logger.info("Поле логина пустое");
         }
     }
 

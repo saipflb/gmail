@@ -22,12 +22,20 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//*[@id='view_container']/form/div[2]/div/div/div/ul/li[1]/div")
     public WebElement reserveEmailConfirm;
 
+    @FindBy(xpath = "//*[@id='profileIdentifier']")
+    public WebElement profileIdentifier;
 
+
+    @FindBy(xpath = "//*[@aria-label='Сменить аккаунт']")
+    public WebElement expandButton;
+
+    @FindBy(xpath = "//*[@id='identifierLink']")
+    public WebElement changeUser;
 
 
     private String BASE_URL = "https://gmail.com";
 
-    public LoginPage(){
+    public LoginPage() {
         super();
         driver.get(BASE_URL);
     }

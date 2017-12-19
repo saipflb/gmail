@@ -34,7 +34,7 @@ public class DraftsPage extends AbstractPage {
     @FindBy(xpath = "//*[contains(@title, 'Отправленные')]")
     private WebElement sended;
 
-//проверяется, что создан черновик с нужной темой
+     //проверяется, что создан черновик с нужной темой
     public String getDraftSubject() {
 
         return draftSubject.getText();
