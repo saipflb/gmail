@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.pflb.learning.pages.AbstractPage;
 import ru.pflb.learning.pages.LoginPage;
+
 import static org.openqa.selenium.Keys.ENTER;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -48,28 +49,21 @@ public class LoginPageSteps extends AbstractPage {
     public void checkUserForm(String check, String email) {
         logger.info("Верит ли Google что логинится именно пользователь, а не хакер?");
         try {
-            assertEquals(loginPage.checkUser.getText(), check);
+//        String user = loginPage.checkUser.getText();
+        if(loginPage.checkUser.getText().equals(check))
+        {
             logger.info("Google не верит. Появилось окно " + check);
             loginPage.reserveEmailConfirm.click();
-            //TODO дописать метод для заполнения поля и подтверждения
-        } catch (Exception e) {
+        } else {
             logger.info("Google верит");
-        }
-    }
 
-    @Если("^поле логина заполнено, пользователь жмет кнопку 'Сменить аккаунт'$")
-    public void checkLoginField() {
-        logger.info("Проверяем, заполнено ли поле логина");
-        try {
-            assertNotNull(loginPage.profileIdentifier.getText());
-            logger.warn("Поле логина уже заполнено");
-            loginPage.expandButton.click();
-            logger.info("Жмем на кнопку развертки");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='identifierLink']")));
-            loginPage.changeUser.click();
-            logger.info("Выбираем поле 'Другой аккаунт' ");
+//            assertEquals(loginPage.checkUser.getText(), check);
+//            logger.info("Google не верит. Появилось окно " + check);
+//            loginPage.reserveEmailConfirm.click();
+//            //TODO дописать метод для заполнения поля и подтверждения
+        }
         } catch (Exception e) {
-            logger.info("Поле логина пустое");
+            logger.info("All those moments will be lost in time, like tears in rain");
         }
     }
 
