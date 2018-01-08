@@ -13,7 +13,6 @@ public class FinishPage extends AbstractPage {
     @FindBy(xpath = "//*[contains(@title, 'Аккаунт Google')]")
     private WebElement userIcon;
 
-
     //ищется письмо с корректной темой
     public void findMail() {
         driver.findElement(By.xpath(String.format("//*[text()='%s']", subjectPlusTime)));
@@ -26,12 +25,7 @@ public class FinishPage extends AbstractPage {
 
     }
 
-    //закрываем браузер
-    public void closeBrowser() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+
 
     public void logoutchecking() {
         driver.findElement(By.name("password"));

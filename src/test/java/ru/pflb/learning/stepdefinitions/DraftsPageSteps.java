@@ -8,7 +8,7 @@ import ru.pflb.learning.pages.MainPage;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
-public class DraftsPageSteps extends AbstractPage{
+public class DraftsPageSteps extends AbstractPage {
     private DraftsPage draftsPage = new DraftsPage();
     private MainPage mainPage = new MainPage();
 
@@ -17,25 +17,28 @@ public class DraftsPageSteps extends AbstractPage{
         logger.info("проверяем, что письмо сохранено в черновиках");
         assertEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject());
     }
+
     @И("^открывает черновик$")
     public void openDraft() {
         logger.info("открываем черновик");
         draftsPage.draftClicker();
     }
+
     @И("^проверяет, что адресат письма соответствует введенному$")
-    public void checkMailTo(){
+    public void checkMailTo() {
         logger.info("проверяем, что адресат письма соответствует введенному");
         assertEquals(mainPage.getAddress(), draftsPage.getMailToField());
 
     }
+
     @И("^проверяет, что тема письма соответствует введенной$")
-    public void checkMailSubject(){
+    public void checkMailSubject() {
         logger.info("проверяем, что тема письма соответствует введенной");
         assertEquals(mainPage.getSubjectPlusTime(), draftsPage.getMailSubject());
     }
 
     @И("^проверяет, что текст письма соответствует введенному$")
-    public void checkMailText(){
+    public void checkMailText() {
         logger.info("проверяем, что текст письма соответствует введенному");
         assertEquals(mainPage.getText(), draftsPage.getMailText());
     }
@@ -55,6 +58,12 @@ public class DraftsPageSteps extends AbstractPage{
 //        logger.debug("сравниваем тему первого письма с введенной");
 //        assertNotEquals(mainPage.getSubjectPlusTime(), draftsPage.getDraftSubject()); //переписать, используя Expliced wait
     }
+    @И("^переходит в раздел Отправленные$")
+    public void clickSended() {
+        logger.info("переходим в раздел Отправленные");
+        draftsPage.sendedButtonClicker();
+
     }
+}
 
 

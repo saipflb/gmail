@@ -1,44 +1,85 @@
 package ru.pflb.learning.stepdefinitions;
 
+import cucumber.api.java.ru.Если;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Пусть;
-import org.testng.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.pflb.learning.pages.AbstractPage;
 import ru.pflb.learning.pages.LoginPage;
-import ru.pflb.learning.pages.MainPage;
 
-public class LoginPageSteps extends AbstractPage{
+import static org.openqa.selenium.Keys.ENTER;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+
+public class LoginPageSteps extends AbstractPage {
     private LoginPage loginPage = new LoginPage();
-    private MainPage mainPage = new MainPage();
+    private final Wait<WebDriver> wait = new WebDriverWait(driver, 100, 1000);
 
-    @Пусть("^пользователь вводит логин '(.+)'$")
+    @Пусть("^пользователь вводит \"(.*)\"$")//TODO проверка на то, что поле login уже заполнено после прошлого прогона
     public void fillLogin(String login) {
-        logger.info("Логинимся");
-        loginPage.fillLoginField(login);
+        logger.info("Проверяем, заполнено ли поле логина");
+        try {
+            assertNotNull(loginPage.profileIdentifier.getText());
+            logger.warn("Поле логина уже заполнено");
+            loginPage.expandButton.click();
+            logger.info("Жмем на кнопку развертки");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='identifierLink']")));
+            loginPage.changeUser.click();
+            logger.info("Выбираем поле 'Другой аккаунт' ");
+        } catch (Exception e) {
+            logger.info("Поле логина пустое");
+        }
+        logger.info("Пользователь вводит логин " + login);
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#identifierId")));
+            loginPage.fillLoginField(login);
+            loginPage.loginField.sendKeys(ENTER);
+        } catch (Exception e) {
+            logger.error("Не удалось ввести логин или такого пользователя не существует");//TODO проверка на неверный логин
         }
 
-    @И("^нажимает кнопку Далее$")
-    public void clickEnterButton(){
-        logger.info("Жмем кнопку Далее");
-        loginPage.clickSubmitButton();
+
     }
 
-    @И("^вводит пароль '(.+)'$")
-    public void fillPassword(String password) throws InterruptedException {
+    @Если("^появилось окно \"(.*)\", то пользователь вводит \"(.*)\"$")
+    public void checkUserForm(String check, String email) {
+        logger.info("Верит ли Google что логинится именно пользователь, а не хакер?");
+        try {
+//        String user = loginPage.checkUser.getText();
+        if(loginPage.checkUser.getText().equals(check))
+        {
+            logger.info("Google не верит. Появилось окно " + check);
+            loginPage.reserveEmailConfirm.click();
+        } else {
+            logger.info("Google верит");
+
+//            assertEquals(loginPage.checkUser.getText(), check);
+//            logger.info("Google не верит. Появилось окно " + check);
+//            loginPage.reserveEmailConfirm.click();
+//            //TODO дописать метод для заполнения поля и подтверждения
+        }
+        } catch (Exception e) {
+            logger.info("All those moments will be lost in time, like tears in rain");
+        }
+    }
+
+    @И("^вводит пароль \"(.*)\"$")
+    public void fillPassword(String password) {
         logger.info("Вводим пароль");
-        loginPage.fillPasswordField(password);
-    }
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='password']/div[1]/div/div[1]/input")));
+            loginPage.passwordField.sendKeys(password);
+            loginPage.passwordField.sendKeys(ENTER);
+            wait.until(ExpectedConditions.invisibilityOf(driver.findElement((By.xpath("//*[@id='password']/div[1]/div/div[1]/input")))));
+            logger.info("Ждем, пока не исчезнет заголовок \"Добро пожаловать\"");
+        } catch (Exception e) {
+            logger.error("Не удалось ввести пароль или пароль не подходит");//TODO проверка на неверный пароль
+        }
 
-    @И("^еще раз нажимает кнопку Далее$")
-    public void clickNextButton(){
-        logger.info("Жмем кнопку Далее");
-        loginPage.clickNextButton();
-    }
-
-    @И("пользователь '(.+)' авторизован")
-    public void checkforUserAuthenticated(String user){
-        logger.info("Проверяем, что залогинились");
-        Assert.assertTrue(mainPage.getUserName().contains(user));
     }
 
 

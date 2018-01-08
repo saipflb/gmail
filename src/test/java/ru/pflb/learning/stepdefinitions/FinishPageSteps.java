@@ -7,16 +7,9 @@ import ru.pflb.learning.pages.DraftsPage;
 import ru.pflb.learning.pages.FinishPage;
 
 
-public class FinishPageSteps extends AbstractPage{
-    private DraftsPage draftsPage = new DraftsPage();
+public class FinishPageSteps extends AbstractPage {
     private FinishPage finishPage = new FinishPage();
 
-    @И("^переходит в раздел Отправленные$")
-    public void clickSended() {
-        logger.info("переходим в раздел Отправленные");
-        draftsPage.sendedButtonClicker();
-
-    }
 
     @И("^проверяет, что письмо появилось в Отправленных$")
     public void findMail() {
@@ -25,20 +18,27 @@ public class FinishPageSteps extends AbstractPage{
     }
 
     @И("^закрывает почту$")
-    public void logout(){
+    public void logout() {
         logger.info("закрывает почту");
         finishPage.logOut();
     }
+
     @И("^попадает на страницу логина$")
-    public void logoutCheck(){
+    public void logoutCheck() {
         logger.info("попадает на страницу логина");
-        finishPage.logoutchecking();
+        try {
+            finishPage.logoutchecking();
+        } catch (Exception e) {
+            logger.info("Промахнулся мимо страницы логина");
+            closeDriver();
+        }
     }
 
-    @Тогда ("^тест завершен$")
-    public void finishTest(){
-        logger.info("тест успешно завершен");
-        finishPage.closeBrowser();
-    }
+    @Тогда("^тест завершен$")
+    public void finishTest() throws InterruptedException {
+        logger.info("<<<<<<<<<<<<<<<<<<<<<Тест успешно завершен>>>>>>>>>>>>>>>>>>>>");
+        Thread.sleep(1000);
+//        closeDriver();
+        }
 
 }
