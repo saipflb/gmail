@@ -49,19 +49,20 @@ public class LoginPageSteps extends AbstractPage {
     public void checkUserForm(String check, String email) {
         logger.info("Верит ли Google что логинится именно пользователь, а не хакер?");
         try {
-//        String user = loginPage.checkUser.getText();
-        if(loginPage.checkUser.getText().equals(check))
-        {
-            logger.info("Google не верит. Появилось окно " + check);
-            loginPage.reserveEmailConfirm.click();
-        } else {
-            logger.info("Google верит");
+            if (loginPage.checkUser.getText().equals(check)) {
+                logger.info("Google не верит. Появилось окно " + check);
+                loginPage.reserveEmailConfirm.click();
+                loginPage.reserveEmailField.clear();
+                loginPage.reserveEmailField.sendKeys(email);
+                loginPage.reserveEmailField.sendKeys(ENTER);
+            } else {
+                logger.info("Google верит");
 
 //            assertEquals(loginPage.checkUser.getText(), check);
 //            logger.info("Google не верит. Появилось окно " + check);
 //            loginPage.reserveEmailConfirm.click();
 //            //TODO дописать метод для заполнения поля и подтверждения
-        }
+            }
         } catch (Exception e) {
             logger.info("All those moments will be lost in time, like tears in rain");
         }

@@ -30,5 +30,5 @@
     Примеры:
       | login                 | пароль          | резервный email |
       | kotionb3505@gmail.com | KotionEachB3505 | sai0nara@ya.ru  |
-      | otionb3505@gmail.com  | KotionEachB3505 | sai0nara@ya.ru  |
+#      | otionb3505@gmail.com  | KotionEachB3505 | sai0nara@ya.ru  |
 

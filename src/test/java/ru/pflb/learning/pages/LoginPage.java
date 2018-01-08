@@ -19,6 +19,9 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//*[@id='headingText']")
     public WebElement checkUser;
 
+    @FindBy(xpath = "//*[@name='knowledgePreregisteredEmailResponse']")
+    public WebElement reserveEmailField;
+
     @FindBy(xpath = "//*[@id='view_container']/form/div[2]/div/div/div/ul/li[1]/div")
     public WebElement reserveEmailConfirm;
 
