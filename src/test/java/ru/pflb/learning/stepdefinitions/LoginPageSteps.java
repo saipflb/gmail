@@ -12,14 +12,13 @@ import ru.pflb.learning.pages.AbstractPage;
 import ru.pflb.learning.pages.LoginPage;
 
 import static org.openqa.selenium.Keys.ENTER;
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 public class LoginPageSteps extends AbstractPage {
     private LoginPage loginPage = new LoginPage();
     private final Wait<WebDriver> wait = new WebDriverWait(driver, 100, 1000);
 
-    @Пусть("^пользователь вводит \"(.*)\"$")//TODO проверка на то, что поле login уже заполнено после прошлого прогона
+    @Пусть("^пользователь вводит \"(.*)\"$")//TODO проверка на то, что поле login уже заполнено после прошлого прогона через цикл
     public void fillLogin(String login) {
         logger.info("Проверяем, заполнено ли поле логина");
         try {
@@ -57,11 +56,6 @@ public class LoginPageSteps extends AbstractPage {
                 loginPage.reserveEmailField.sendKeys(ENTER);
             } else {
                 logger.info("Google верит");
-
-//            assertEquals(loginPage.checkUser.getText(), check);
-//            logger.info("Google не верит. Появилось окно " + check);
-//            loginPage.reserveEmailConfirm.click();
-//            //TODO дописать метод для заполнения поля и подтверждения
             }
         } catch (Exception e) {
             logger.info("All those moments will be lost in time, like tears in rain");

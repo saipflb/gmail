@@ -1,7 +1,6 @@
 package ru.pflb.learning.pages;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import ru.pflb.learning.helpers.DriverManager;
@@ -15,7 +14,7 @@ public abstract class AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void closeDriver() {
+    protected void closeDriver() {
         if (driver != null) {
             driver.quit();
         }
