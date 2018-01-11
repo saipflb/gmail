@@ -13,11 +13,4 @@ public abstract class AbstractPage {
         driver = DriverManager.getDriver();
         PageFactory.initElements(driver, this);
     }
-
-    protected void closeDriver() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
 }

@@ -2,9 +2,12 @@ package ru.pflb.learning.stepdefinitions;
 
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Тогда;
+import org.openqa.selenium.By;
 import ru.pflb.learning.pages.AbstractPage;
 import ru.pflb.learning.pages.DraftsPage;
 import ru.pflb.learning.pages.FinishPage;
+
+import static ru.pflb.learning.stepdefinitions.MainPageSteps.subjectPlusTime;
 
 
 public class FinishPageSteps extends AbstractPage {
@@ -14,31 +17,29 @@ public class FinishPageSteps extends AbstractPage {
     @И("^проверяет, что письмо появилось в Отправленных$")
     public void findMail() {
         logger.info("проверяет, что письмо появилось в Отправленных");
-        finishPage.findMail();
+        driver.findElement(By.xpath(String.format("//*[text()='%s']", subjectPlusTime)));
     }
 
     @И("^закрывает почту$")
     public void logout() {
         logger.info("закрывает почту");
-        finishPage.logOut();
+        finishPage.userIcon.click();
+        finishPage.logoutButton.click();
     }
 
     @И("^попадает на страницу логина$")
     public void logoutCheck() {
         logger.info("попадает на страницу логина");
         try {
-            finishPage.logoutchecking();
+            driver.findElement(By.name("password"));
         } catch (Exception e) {
             logger.info("Промахнулся мимо страницы логина");
-            closeDriver();
         }
     }
 
     @Тогда("^тест завершен$")
-    public void finishTest() throws InterruptedException {
+    public void finishTest() {
         logger.info("<<<<<<<<<<<<<<<<<<<<<Тест успешно завершен>>>>>>>>>>>>>>>>>>>>");
-        Thread.sleep(1000);
-//        closeDriver();
-        }
+    }
 
 }

@@ -10,15 +10,21 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.pflb.learning.pages.AbstractPage;
 import ru.pflb.learning.pages.LoginPage;
-
 import static org.openqa.selenium.Keys.ENTER;
 import static org.testng.Assert.assertNotNull;
 
 public class LoginPageSteps extends AbstractPage {
     private LoginPage loginPage = new LoginPage();
     private final Wait<WebDriver> wait = new WebDriverWait(driver, 100, 1000);
+    private String BASE_URL = "https://gmail.com";
 
-    @Пусть("^пользователь вводит \"(.*)\"$")//TODO проверка на то, что поле login уже заполнено после прошлого прогона через цикл
+    public LoginPageSteps() {
+        super();
+        driver.get(BASE_URL);
+    }
+
+    @Пусть("^пользователь вводит \"(.*)\"$")
+//TODO проверка на то, что поле login уже заполнено после прошлого прогона через цикл
     public void fillLogin(String login) {
         logger.info("Проверяем, заполнено ли поле логина");
         try {
@@ -35,7 +41,8 @@ public class LoginPageSteps extends AbstractPage {
         logger.info("Пользователь вводит логин " + login);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#identifierId")));
-            loginPage.fillLoginField(login);
+            loginPage.loginField.clear();
+            loginPage.loginField.sendKeys(login);
             loginPage.loginField.sendKeys(ENTER);
         } catch (Exception e) {
             logger.error("Не удалось ввести логин или такого пользователя не существует");//TODO проверка на неверный логин
