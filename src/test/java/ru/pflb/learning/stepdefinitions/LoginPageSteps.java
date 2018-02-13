@@ -4,6 +4,7 @@ import cucumber.api.java.ru.Если;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Пусть;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
@@ -55,17 +56,19 @@ public class LoginPageSteps extends AbstractPage {
     public void checkUserForm(String check, String email) {
         logger.info("Верит ли Google что логинится именно пользователь, а не хакер?");
         try {
-            if (loginPage.checkUser.getText().equals(check)) {
+//            if (
+                    loginPage.checkUser.getText().equals(check);
+//            {
                 logger.info("Google не верит. Появилось окно " + check);
                 loginPage.reserveEmailConfirm.click();
                 loginPage.reserveEmailField.clear();
                 loginPage.reserveEmailField.sendKeys(email);
                 loginPage.reserveEmailField.sendKeys(ENTER);
-            } else {
-                logger.info("Google верит");
-            }
-        } catch (Exception e) {
-            logger.info("All those moments will be lost in time, like tears in rain");
+//            } else {
+//                logger.info("Появилось окно с заголовком " + loginPage.checkUser.getText());
+//            }
+        } catch (NoSuchElementException e) {
+            logger.info("Google верит");
         }
     }
 
